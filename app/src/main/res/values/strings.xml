@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SpeechExample</string>
+    <string name="label_speak_now">Говорите сейчас</string>
+</resources>
