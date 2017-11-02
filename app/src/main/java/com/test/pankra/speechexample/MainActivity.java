@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.test.pankra.speechexample.listener.LogRecognitionListener;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -126,32 +128,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private String getErrorText(int errorCode) {
-        switch (errorCode) {
-            case SpeechRecognizer.ERROR_AUDIO:
-                return "Audio recording error";
-            case SpeechRecognizer.ERROR_CLIENT:
-                return "Client side error";
-            case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-                return "Insufficient permissions";
-            case SpeechRecognizer.ERROR_NETWORK:
-                return "Network error";
-            case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-                return "Network timeout";
-            case SpeechRecognizer.ERROR_NO_MATCH:
-                return "No match";
-            case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-                return "RecognitionService busy";
-            case SpeechRecognizer.ERROR_SERVER:
-                return "Error from server";
-            case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-                return "No speech input";
-            default:
-                return "Didn't understand, please try again.";
-        }
-    }
-
-
     private void restartRecognition() {
         Log.d(TAG, new Date().getTime() + "restartRecognition start");
         speechRecognizer.stopListening();
@@ -183,8 +159,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onError(int error) {
             super.onError(error);
-            textView.setText("error " + error + ": " + getErrorText(error));
-            Log.d(TAG, new Date().getTime() + "onError: " + getErrorText(error));
+            textView.setText("error " + error + ": " + SpeechUtil.getErrorText(error));
+            Log.d(TAG, new Date().getTime() + "onError: " + SpeechUtil.getErrorText(error));
             restartRecognition();
         }
 
@@ -236,50 +212,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class LogRecognitionListener implements RecognitionListener {
-        @Override
-        public void onReadyForSpeech(Bundle bundle) {
-            Log.d(TAG, "onReadyForSpeech");
-        }
-
-        @Override
-        public void onBeginningOfSpeech() {
-            Log.d(TAG, "onBeginningOfSpeech");
-        }
-
-        @Override
-        public void onRmsChanged(float v) {
-            Log.d(TAG, "onRmsChanged");
-        }
-
-        @Override
-        public void onBufferReceived(byte[] bytes) {
-            Log.d(TAG, "onBufferReceived");
-        }
-
-        @Override
-        public void onEndOfSpeech() {
-            Log.d(TAG, "onEndofSpeech");
-        }
-
-        @Override
-        public void onError(int error) {
-            Log.d(TAG, "error " + error);
-        }
-
-        @Override
-        public void onResults(Bundle results) {
-            Log.d(TAG, "onResults " + results);
-        }
-
-        @Override
-        public void onPartialResults(Bundle bundle) {
-            Log.d(TAG, "onPartialResults");
-        }
-
-        @Override
-        public void onEvent(int eventType, Bundle bundle) {
-            Log.d(TAG, "onEvent " + eventType);
-        }
-    }
 }
