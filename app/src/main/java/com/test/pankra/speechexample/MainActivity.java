@@ -1,7 +1,9 @@
 package com.test.pankra.speechexample;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
@@ -9,6 +11,7 @@ import android.speech.SpeechRecognizer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -56,12 +59,55 @@ public class MainActivity extends AppCompatActivity {
                 startRecognition();
             }
         });
+
+        findViewById(R.id.stream_notification).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                audioManager.setStreamMute(AudioManager.STREAM_NOTIFICATION, ((CheckBox) v).isChecked());
+            }
+        });
+        findViewById(R.id.stream_alarm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                audioManager.setStreamMute(AudioManager.STREAM_ALARM, ((CheckBox) v).isChecked());
+            }
+        });
+        findViewById(R.id.stream_music).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, ((CheckBox) v).isChecked());
+            }
+        });
+        findViewById(R.id.stream_ring).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                audioManager.setStreamMute(AudioManager.STREAM_RING, ((CheckBox) v).isChecked());
+
+            }
+        });
+        findViewById(R.id.stream_system).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, ((CheckBox) v).isChecked());
+            }
+        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         speechRecognizer.destroy();
+        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
+        audioManager.setStreamMute(AudioManager.STREAM_ALARM, false);
+        audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+        audioManager.setStreamMute(AudioManager.STREAM_RING, false);
+        audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
     }
 
     @Override

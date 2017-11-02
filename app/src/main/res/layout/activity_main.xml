@@ -39,4 +39,41 @@
         android:text="CONTINUOUS LISTENING"
         />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Check to MUTE, uncheck to restore:"
+        />
+
+    <CheckBox
+        android:id="@+id/stream_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="STREAM_NOTIFICATION"
+        />
+    <CheckBox
+        android:id="@+id/stream_alarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="STREAM_ALARM"
+        />
+    <CheckBox
+        android:id="@+id/stream_music"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="STREAM_MUSIC"
+        />
+    <CheckBox
+        android:id="@+id/stream_ring"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="STREAM_RING"
+        />
+    <CheckBox
+        android:id="@+id/stream_system"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="STREAM_SYSTEM"
+        />
+
 </LinearLayout>
