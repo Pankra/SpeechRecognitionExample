@@ -32,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.text);
+
+        if (!SpeechUtil.isSpeechAvailable(this)) {
+            textView.setText("recognition\nNOT AVAILABLE");
+            return;
+        }
+
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         //https://stackoverflow.com/questions/6316937/how-can-i-use-speech-recognition-without-the-annoying-dialog-in-android-phones --look for the answer in the question
 
